@@ -1,10 +1,9 @@
 import importlib
 from commands.basic import ImportCommand
 from commands import MyCustomCommand
-
+from .ValidateInput import InputAdapter
 
 class CLI:
-    __commands = []
 
     def __new__(self):
         if not hasattr(self, 'instance'):
@@ -13,6 +12,7 @@ class CLI:
 
     def __init__(self):
         self.import_command = ImportCommand()
+        self.input_adapter = InputAdapter(self.import_command.available_commands.items())
 
     def run(self):
         self.import_command.import_commands()
@@ -20,16 +20,19 @@ class CLI:
         while True:
             print("\nAvailable commands:")
             for name, description in self.import_command.available_commands.items():
-                print(f"{name}: {description['description']}")
+                print(f"{description['id']}) {name}: {description['description']}")
 
-            choice = input("Enter a command or 'exit' to quit: ")
+            choice = input("Enter a command name or ID or 'exit' to quit: ")
+            converted_input = self.input_adapter.adapt_input(choice)
+
+            
 
             if choice == 'exit':
                 print("Exiting CLI.")
                 break
 
-            if choice in self.import_command.available_commands:
-                command_class = self.import_command.available_commands[choice]['class']
+            if converted_input in self.import_command.available_commands:
+                command_class = self.import_command.available_commands[converted_input]['class']
                 command_instance = command_class()
                 command_instance.execute([])
             else:

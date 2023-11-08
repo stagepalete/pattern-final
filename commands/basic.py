@@ -41,7 +41,7 @@ class ImportCommand:
         import sys
 
         commands_folder = "commands"
-
+        i = 1
         if os.path.exists(commands_folder) and os.path.isdir(commands_folder):
             sys.path.append(commands_folder)
             for filename in os.listdir(commands_folder):
@@ -54,9 +54,11 @@ class ImportCommand:
                             command_name = getattr(obj, "command_name", name)
                             command_description = getattr(obj, "command_description", name)
                             self.available_commands[command_name] = {
+                                'id' : i,
                                 'class': obj,
                                 'description': command_description
                             }
+                            i+=1
 
 
     def list_available_commands(self):

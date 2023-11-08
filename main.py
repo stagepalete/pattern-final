@@ -1,4 +1,7 @@
 from cli.CLI import CLI
+from library.Library import Library
+
+library = Library()
 
 def main():
     cli = CLI()

@@ -9,3 +9,14 @@ class MyCustomCommand(Command):
     def execute(self, args):
         # Implement the specific behavior of your command here
         print("MyCustomCommand executed.")
+
+
+class SecondCustomCommand(Command):
+    command_name = "mycommand2"
+    command_description = "Description of MyCustomCommand"
+    def __init__(self):
+        super().__init__(self.command_name, self.command_description)
+
+    def execute(self, args):
+        # Implement the specific behavior of your command here
+        print("MyCustomCommand2 executed.")

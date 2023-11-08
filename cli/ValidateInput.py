@@ -11,7 +11,6 @@ class InputAdapter:
 
     def adapt_input_by_id(self, user_input):
         for name, description in self.commands:
-            print(name)
             if int(user_input) == int(description['id']):
                 return name
         return None

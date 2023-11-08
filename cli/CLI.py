@@ -1,6 +1,5 @@
 import importlib
 from commands.basic import ImportCommand
-from commands import MyCustomCommand
 from .ValidateInput import InputAdapter
 
 class CLI:

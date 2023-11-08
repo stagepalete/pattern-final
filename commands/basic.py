@@ -2,11 +2,11 @@ import importlib
 import inspect
 
 class Command:
-    def __init__(self, name, description, admin):
+    def __init__(self, name, description, admin, decorator_classes = []):
         self.name = name
         self.description = description
         self.admin = admin
-
+        self.decorator_classes = decorator_classes
     def execute(self, args):
         pass
 

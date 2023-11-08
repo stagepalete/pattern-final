@@ -28,7 +28,7 @@ class CLI:
                 is_admin = user_data['is_admin']
                 message = user_data['message']
                 user = User(username, password, is_admin, message)
-                CLI.instance.user = user
+                self.user = user
                 print(f'Welcome, {self.user.username}')
                 return
 
@@ -71,7 +71,18 @@ class CLI:
             if converted_input in self.import_command.available_commands:
                 command_class = self.import_command.available_commands[converted_input]['class']
                 command_instance = command_class()
-                command_instance.execute([])
+                if self.user.is_admin and self.import_command.available_commands[converted_input]['admin'] is True:
+                    if command_instance.decorator_classes:
+                        for decorator in command_instance.decorator_classes:
+                            command_instance = decorator(command_instance)
+                    command_instance.execute([])
+                elif not self.user.is_admin and self.import_command.available_commands[converted_input]['admin'] is False:
+                    if command_instance.decorator_classes:
+                        for decorator in command_instance.decorator_classes:
+                            command_instance = decorator(command_instance)
+                    command_instance.execute([])
+                else:
+                    print('Admin permission required!')
             else:
                 print("Invalid command. Please try again.")
             

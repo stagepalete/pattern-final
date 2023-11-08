@@ -15,14 +15,5 @@ class User:
     def update(self):
         print(f"Message received: {self.message}")
 
-        with open('data/users.json', 'r') as json_file:
-            users = json.load(json_file)
-
-        for user in users:
-            if user['username'] == self.username:
-                self.message = user['message']
-
-        with open('data/users.json', 'w') as json_file:
-            json.dump(users, json_file)
     def __str__(self):
         return f"{self.username}"

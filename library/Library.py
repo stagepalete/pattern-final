@@ -31,13 +31,11 @@ class Library:
             json.dump(users, json_file)
 
     def add_item(self):
-        """Add an item to the library."""
         item_type = input("Select Item type that you want to choose (book, magazine, dvd): ")
         item = self.library_item_factory.create_library_item(item_type)
         self.library_items.append(item)
 
     def remove_item(self, title):
-        """Remove an item from the library."""
 
         for item in self.library_items:
             if title == item.title:
@@ -46,7 +44,6 @@ class Library:
         print(f"{item} is not in the library.")
 
     def display_items(self):
-        """Display information about library items."""
         for item in self.library_items:
             item.display_info()
     

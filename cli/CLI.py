@@ -25,7 +25,7 @@ class CLI:
 
         for user_data in loaded_users:
             if user_data['username'] == username and user_data['password'] == password:
-                is_admin = user_data['is_admin']  # Provide a default value of False if 'is_admin' is missing in the JSON
+                is_admin = user_data['is_admin']
                 message = user_data['message']
                 user = User(username, password, is_admin, message)
                 CLI.instance.user = user
@@ -66,13 +66,16 @@ class CLI:
                 print("Exiting CLI.")
                 break
             
-            if choice == 'logout':
-                print('You have logged out')
-                self.user = None
+            
             
             if converted_input in self.import_command.available_commands:
                 command_class = self.import_command.available_commands[converted_input]['class']
                 command_instance = command_class()
+                command_instance.execute([])
             else:
                 print("Invalid command. Please try again.")
+            
+            if choice == 'logout':
+                print('You have logged out')
+                self.user = None
             

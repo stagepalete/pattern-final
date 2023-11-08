@@ -1,10 +1,34 @@
 from .Items.Items import Book, Dvd, Magazine
 from .LibraryItemFactory import LibraryItemFactory
+import json
+from cli.CLI import CLI
 
 class Library:
     def __init__(self):
         self.library_items = []
         self.library_item_factory = LibraryItemFactory()
+        self.subscribers = []
+
+    def add_subscribers(self, user):
+        self.subscribers.append(user)
+
+    def remove_subscribers(self, user):
+        self.subscribers.remove(user)
+
+    def notify_subscribers(self, message):
+        if CLI.instance.user is not None and CLI.instance.user in self.subscribers:
+            print(message)
+
+        with open('data/users.json', 'r') as json_file:
+            users = json.load(json_file)
+
+        for subscriber in self.subscribers:
+            for user in users:
+                if user['username'] == subscriber.username:
+                    user['message'] = message
+
+        with open('data/users.json', 'w') as json_file:
+            json.dump(users, json_file)
 
     def add_item(self):
         """Add an item to the library."""

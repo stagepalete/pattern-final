@@ -1,14 +1,1 @@
-[
-    {
-        "username": "stagepalete",
-        "password": "123",
-        "is_admin": false,
-        "message": ""
-    },
-    {
-        "username": "admin",
-        "password": "1234",
-        "is_admin": true,
-        "message": ""
-    }
-]
+[{"username": "stagepalete", "password": "123", "is_admin": false, "message": "wefonwef"}, {"username": "admin", "password": "1234", "is_admin": true, "message": ""}]
